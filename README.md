@@ -25,6 +25,10 @@ process optimization:
 It also incorporates the code used in prior works focused more on conventional ML algorithms.
 
 
+## Documentation
+
+Full documentation is available at [https://aldsim.github.io/aldenv/](https://aldsim.github.io/aldenv/).
+
 ## Funding acknowledgement
 
 The work conducive to `aldenv` was funded as part of Argonne National Laboratory's Laboratory Directed Research and Development microelectronics portfolio.
