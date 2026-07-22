@@ -25,7 +25,7 @@ creates a fast-fast ALD process where both the precursor and co-reactant are sat
 Sweeping the precursor dose time gives the following saturation curve:
 
 <figure markdown="span">
-![FastFast saturation curve](.images/fastfast_sat.png){ width="40%" }
+![FastFast saturation curve](./images/fastfast_sat.png){ width="40%" }
 </figure>
 
 ## doseoptim environments
@@ -47,5 +47,5 @@ environments where the growth has a CVD component. For instance:
 This results in the following saturation curve:
 
 <figure markdown="span">
-![FastFast saturation curve](.images/fastfastcvd01_sat.png){ width="40%" }
+![FastFast saturation curve](./images/fastfastcvd01_sat.png){ width="40%" }
 </figure>
