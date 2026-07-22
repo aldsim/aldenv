@@ -38,7 +38,7 @@ The work conducive to `aldenv` was funded as part of Argonne National Laboratory
 
 ## Copyright and license
 
-Copyright© 2024, UChicago Argonne, LLC
+Copyright© 2026, UChicago Argonne, LLC
 
 `aldenv` is distributed under the terms of BSD License.
 
