@@ -22,6 +22,7 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["pytest"]
 examples = ["matplotlib"]
+docs = ["mkdocs", "mkdocs-material", "pymdown-extensions"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aldenv"]
