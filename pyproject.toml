@@ -4,13 +4,20 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aldenv"
-version = "0.0.1"
-description = "Environments for exploring AI agents for semiconductor processing"
+version = "0.1.0"
+description = "Environments to explore the integration of AI agents and ML algorithms with ALD tools"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
-authors = [{ name = "anglyan" }]
+authors = [{ name = "Angel Yanguas-Gil" }]
 dependencies = ["numpy"]
+keywords = ["atomic layer deposition", "ALD", "AI", "environments"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering",
+]
 
 [project.optional-dependencies]
 dev = ["pytest"]
