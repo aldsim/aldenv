@@ -23,13 +23,14 @@ process optimization:
 
 It also incorporates the code used in prior works focused more on conventional ML algorithms.
 
-## Math example
+## Install
 
-Inline math like \\(\Gamma_{max}\\) and display math both render via MathJax:
+The easiest way is to use `pip`:
 
-\[
-\theta(t) = 1 - e^{-k t}
-\]
+```Python
+pip install aldenv
+```
+
 
 ## Funding acknowledgement
 
