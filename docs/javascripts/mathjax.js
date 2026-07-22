@@ -1,3 +1,4 @@
+// MathJax configuration to enable math rendering in the docs.
 window.MathJax = {
   tex: {
     inlineMath: [["\\(", "\\)"]],

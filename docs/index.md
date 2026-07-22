@@ -27,7 +27,7 @@ It also incorporates the code used in prior works focused more on conventional M
 
 The easiest way is to use `pip`:
 
-```Python
+```
 pip install aldenv
 ```
 

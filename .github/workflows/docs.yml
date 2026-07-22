@@ -1,3 +1,4 @@
+# Builds the project documentation with MkDocs and publishes it to GitHub Pages.
 name: docs
 
 on:
