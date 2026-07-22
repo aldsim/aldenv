@@ -24,7 +24,7 @@ creates a fast-fast ALD process where both the precursor and co-reactant are sat
 
 Sweeping the precursor dose time gives the following saturation curve:
 
-<img src="images/fastfast_sat.png" alt="FastFast saturation curve" style="width:40%;">
+![FastFast saturation curve](images/fastfast_sat.png){ width="40%" }
 
 ## doseoptim environments
 
