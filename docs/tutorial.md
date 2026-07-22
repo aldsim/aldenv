@@ -22,6 +22,10 @@ ald = FastFast(round_to=3, noise=0.01)
 
 creates a fast-fast ALD process where both the precursor and co-reactant are saturated after 0.2s doses and with a saturation growth per cycle of 1 Angstrom. It considers a noise level of 0.01 Angstrom and that the output is limited to three significant digits.
 
+Sweeping the precursor dose time gives the following saturation curve:
+
+<img src="images/fastfast_sat.png" alt="FastFast saturation curve" style="width:40%;">
+
 ## doseoptim environments
 
 `doseoptim` environments contain a series of virtual ALD processes where the growth per cycle is computed as a function of the precursor and the co-reactant dose times.
