@@ -24,7 +24,9 @@ creates a fast-fast ALD process where both the precursor and co-reactant are sat
 
 Sweeping the precursor dose time gives the following saturation curve:
 
-![FastFast saturation curve](images/fastfast_sat.png){ width="40%" }
+<figure markdown="span">
+![FastFast saturation curve](.images/fastfast_sat.png){ width="40%" }
+</figure>
 
 ## doseoptim environments
 
@@ -36,6 +38,14 @@ For instance, in our work [Performance of AI agents based on reasoning language 
 - `SlowSlow` represents an ideal ALD process where the precursor and the coreactant are slow to saturate.
 - `SoftFast` introduces a soft-saturating precursor, where after a fast rise it slowly saturates.
 - `FastFast3` is a version of FastFast where the saturated growth per cycle is 0.3 Angstrom.
+
+In addition to these environments, which are fully self-limited, `aldenv` also contains
+environments where the growth has a CVD component. For instance:
+
 - `FastFastCVD01` has a built in CVD component of 0.1 Angstrom per second. This means that a 10 second dose give you an additional Angstrom due to the non self-limited behavior.
 
+This results in the following saturation curve:
 
+<figure markdown="span">
+![FastFast saturation curve](.images/fastfastcvd01_sat.png){ width="40%" }
+</figure>
