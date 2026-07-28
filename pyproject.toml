@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aldenv"
-version = "0.1.0"
+version = "0.2.0"
 description = "Environments to explore the integration of AI agents and ML algorithms with ALD tools"
 readme = "README.md"
 requires-python = ">=3.10"
