@@ -23,10 +23,12 @@ class ALDProcess:
         clamped to 0.
     """
 
-    def __init__(self, ald, round_to=2, scale=1, noise=None):
+    def __init__(self, ald, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         self.ald = ald
         self.scale = scale
         self.round_to = round_to
+        self.toff1 = toff1
+        self.toff2 = toff2
         if noise is None:
             self.has_noise = False
         else:
@@ -34,6 +36,14 @@ class ALDProcess:
             self.noise = noise
 
     def __call__(self, t1, t2):
+        if t1 < self.toff1:
+            return 0
+        else:
+            t1 -= self.toff1
+        if t2 < self.toff2:
+            return 0
+        else:
+            t2 -= self.toff2
         raw = self.ald(t1, t2)
         if self.has_noise:
             raw += self.noise*rnd.normal()
@@ -55,14 +65,18 @@ class FastFast(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALD(k1=5, k2=4, gpc=1.0)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 class SlowFast(ALDProcess):
@@ -77,14 +91,18 @@ class SlowFast(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALD(k1=1, k2=4, gpc=1.0)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 class SlowSlow(ALDProcess):
@@ -99,14 +117,18 @@ class SlowSlow(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALD(k1=1, k2=1, gpc=1.0)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 class FastFast3(ALDProcess):
@@ -121,14 +143,18 @@ class FastFast3(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALD(k1=5, k2=4, gpc=0.3)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 class SoftFast(ALDProcess):
@@ -144,14 +170,18 @@ class SoftFast(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALDSoft(k1=5, k1b=1, fb=0.2, k2=4, gpc=1.0)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 
@@ -168,14 +198,18 @@ class FastFastCVD01(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALDCVD(k1=5, k2=4, gpc0=1.0, gr0=0.1)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
 
 class VerySlowSlow(ALDProcess):
@@ -191,12 +225,16 @@ class VerySlowSlow(ALDProcess):
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Dead time offset subtracted from t1 before evaluating the model.
+    toff2 : float
+        Dead time offset subtracted from t2 before evaluating the model.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
     """
 
-    def __init__(self, round_to=2, scale=1, noise=None):
+    def __init__(self, round_to=2, scale=1, toff1=0, toff2=0, noise=None):
         ald = SimpleALD(k1=0.1, k2=1, gpc=1.0)
-        super().__init__(ald, round_to=round_to, scale=scale, noise=noise)
+        super().__init__(ald, round_to=round_to, scale=scale, toff1=toff1, toff2=toff2, noise=noise)
 
