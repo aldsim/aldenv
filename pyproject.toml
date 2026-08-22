@@ -22,7 +22,10 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["pytest"]
 examples = ["matplotlib"]
-docs = ["mkdocs", "mkdocs-material", "pymdown-extensions"]
+# The docs are built with Zensical, which reads mkdocs.yml natively. The
+# config stays MkDocs-compatible, so `pip install mkdocs mkdocs-material`
+# also still builds it.
+docs = ["zensical", "pymdown-extensions"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aldenv"]

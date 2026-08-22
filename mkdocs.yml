@@ -1,5 +1,16 @@
+# Documentation configuration.
+#
+# The docs are built with Zensical (`zensical build`), the successor to
+# Material for MkDocs by the same authors. Zensical reads mkdocs.yml
+# natively, so this file is deliberately kept in MkDocs format and remains
+# buildable with `mkdocs build` after `pip install mkdocs mkdocs-material`.
+# Only keep options here that both tools understand.
 site_name: aldenv
 site_description: Environments to explore the integration of AI agents and ML algorithms with ALD tools
+# Project GitHub Pages site: served under the /aldenv/ subpath, not at the
+# domain root. site_url is what makes the 404 page and the sitemap resolve
+# against that subpath instead of against "/".
+site_url: https://aldsim.github.io/aldenv/
 repo_url: https://github.com/aldsim/aldenv
 theme:
   name: material
@@ -12,6 +23,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+# MkDocs-only: Zensical has no plugin system yet and ignores this section.
+# Under Zensical the MathJax bundle below is loaded from the CDN at runtime
+# instead of being downloaded into the site at build time.
 plugins:
   - privacy
 

@@ -1,4 +1,5 @@
-# Builds the project documentation with MkDocs and publishes it to GitHub Pages.
+# Builds the project documentation with Zensical and publishes it to GitHub
+# Pages. Zensical reads the MkDocs-format mkdocs.yml directly.
 name: docs
 
 on:
@@ -7,6 +8,7 @@ on:
     paths:
       - "docs/**"
       - "mkdocs.yml"
+      - "pyproject.toml"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 
@@ -28,7 +30,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install ".[docs]"
-      - run: mkdocs build
+      - run: zensical build --clean
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
