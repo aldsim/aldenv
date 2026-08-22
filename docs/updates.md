@@ -32,7 +32,36 @@ Optional one- or two-sentence summary of the theme of the release.
 - Anything withdrawn. Note the release in which it was deprecated.
 -->
 
-## 0.2.0 — unreleased
+## 0.3.0 — 2026-08-22
+
+A rename of the steady-state environments, and a documentation site that
+now includes this page.
+
+### Added
+
+- This Updates page, published as part of the documentation site.
+- A tutorial section on
+  [upstream consumption](tutorial.md#upstream-consumption), showing how a
+  non-zero `toff1` displaces the whole `FastFast` saturation curve without
+  changing the saturated growth per cycle.
+
+### Changed
+
+- **Breaking:** the `doseoptim` module is now called `steadystate`, which
+  better describes what these environments represent: processes measured
+  once growth has reached steady state. Update imports from
+  `aldenv.envs.doseoptim` to `aldenv.envs.steadystate`. Class names and
+  their arguments are unchanged, and no other module is affected.
+- The documentation site is now built with
+  [Zensical](https://zensical.org/) rather than MkDocs and Material for
+  MkDocs, so `pip install aldenv[docs]` now pulls in `zensical`.
+  `mkdocs.yml` is deliberately kept in MkDocs format, so
+  `pip install mkdocs mkdocs-material` still builds the site.
+- The `toff1` and `toff2` docstrings now describe the offsets as dose time
+  consumed upstream of the sample, matching how they are documented in the
+  tutorial. Behaviour is unchanged.
+
+## 0.2.0 — 2026-07-27
 
 First release with published documentation, and a broader set of knobs for
 making the virtual processes behave less ideally.
@@ -50,14 +79,6 @@ making the virtual processes behave less ideally.
   default of `0` reproduces the previous behaviour.
 - A `VerySlowSlow` environment, for a process whose precursor kinetics are
   an order of magnitude slower than `SlowSlow`.
-
-### Changed
-
-- **Breaking:** the `doseoptim` module is now called `steadystate`, which
-  better describes what these environments represent: processes measured
-  once growth has reached steady state. Update imports from
-  `aldenv.envs.doseoptim` to `aldenv.envs.steadystate`. Class names are
-  unchanged, and no other module is affected.
 
 ## 0.1.0 — 2026-07-21
 
