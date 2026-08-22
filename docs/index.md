@@ -31,7 +31,6 @@ The easiest way is to use `pip`:
 pip install aldenv
 ```
 
-
 ## Funding acknowledgement
 
 The work conducive to `aldenv` was funded as part of Argonne National Laboratory's Laboratory Directed Research and Development microelectronics portfolio.

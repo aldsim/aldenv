@@ -49,3 +49,46 @@ This results in the following saturation curve:
 <figure markdown="span">
 ![FastFast saturation curve](./images/fastfastcvd01_sat.png){ width="60%" }
 </figure>
+
+### Upstream consumption
+
+All `steadystate` environments derive from `ALDProcess`, which wraps an ALD model and applies experimental limitations on top of its raw output. 
+
+In order to model upstream consumption,
+`ALDProcess` and all its subclasses can
+receive two parameters, `toff1` and `toff2`, to create offsets. The corresponding saturation curves are computed at the effective dose times `t1 - toff1` and `t2 - toff2`. A dose shorter than its offset is fully consumed upstream: nothing reaches the sample and the growth per cycle is 0. The defaults are `toff1 = toff2 = 0`, in which case there is no upstream consumption and the dose times are passed through unchanged.
+
+For example, giving `FastFast` a precursor offset of 0.5 s:
+
+```Python
+from aldenv.envs.steadystate import FastFast
+import matplotlib.pyplot as pt
+import numpy as np
+
+process = FastFast(round_to=3, noise=0.01, toff1=0.5)
+
+t1 = np.arange(0, 5, 0.5)
+t2 = 1.0
+
+gpc = np.array([process(t, t2) for t in t1])
+
+pt.figure(figsize=(4,3))
+pt.plot(t1, gpc, 'o', linestyle="-")
+pt.xlabel("Precursor dose time, s")
+pt.ylabel(r"Growth per cycle, $\mathrm{\AA}$")
+pt.title("FastFast, toff1 = 0.5 s")
+pt.xlim(0, 5)
+pt.tight_layout()
+pt.savefig("fastfast_toff_sat.png", dpi=300)
+pt.show()
+```
+
+produces the saturation curve below:
+
+<figure markdown="span">
+![FastFast saturation curve with upstream consumption](./images/fastfast_toff_sat.png){ width="60%" }
+</figure>
+
+Compared with the offset-free curve at the top of this tutorial, the whole saturation curve is displaced by 0.5 s: doses of 0.5 s or shorter give no growth at all, and saturation is only reached after about 0.7 s instead of about 0.2 s. The saturated growth per cycle is unchanged.
+
+ 
