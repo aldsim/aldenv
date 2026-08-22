@@ -15,7 +15,7 @@ pip install aldenv
 For instance:
 
 ```Python
-from aldenv.envs.doseoptim import FastFast
+from aldenv.envs.steadystate import FastFast
 
 ald = FastFast(round_to=3, noise=0.01)
 ```
@@ -28,10 +28,10 @@ Sweeping the precursor dose time gives the following saturation curve:
 ![FastFast saturation curve](./images/fastfast_sat.png){ width="60%" }
 </figure>
 
-## doseoptim environments
+## steadystate environments
 
-`doseoptim` environments contain a series of virtual ALD processes where the growth per cycle is computed as a function of the precursor and the co-reactant dose times.
-For instance, in our work [Performance of AI agents based on reasoning language models on ALD process optimization tasks](https://doi.org/10.1116/6.0005313), we use the following environments included in `doseoptim` to evaluate the ability of agents based on reasoning LLMs to optimize ALD processes:
+`steadystate` environments contain a series of virtual ALD processes where the growth per cycle is computed as a function of the precursor and the co-reactant dose times.
+For instance, in our work [Performance of AI agents based on reasoning language models on ALD process optimization tasks](https://doi.org/10.1116/6.0005313), we use the following environments included in `steadystate` to evaluate the ability of agents based on reasoning LLMs to optimize ALD processes:
 
 - `FastFast` represents an ideal ALD process with fast saturation for both precursor and co-reactant.
 - `SlowFast` represents an ideal ALD process where the precursor requires longer doses to saturate.

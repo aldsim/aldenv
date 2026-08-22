@@ -5,8 +5,21 @@ class ALDProcess:
     """Implement an ALD process, an ALD model modified by experimental constraints.
 
     Wraps an underlying ALD model (e.g. SimpleALD) and applies experimental
-    limitations on top of its raw output: additive Gaussian noise, a scale
-    factor, and rounding to a fixed number of decimal places.
+    limitations on top of its raw output: dose time offsets modelling
+    upstream consumption, additive Gaussian noise, a scale factor, and
+    rounding to a fixed number of decimal places.
+
+    The offsets ``toff1`` and ``toff2`` account for the fraction of each
+    dose that is consumed upstream of the sample, for instance by the
+    reactor walls and other surfaces that the precursor and the coreactant
+    encounter before reaching the substrate. Only the part of a dose in
+    excess of the corresponding offset reaches the sample, so the model is
+    evaluated at the effective dose times ``t1 - toff1`` and
+    ``t2 - toff2``. A dose shorter than its offset is fully consumed
+    upstream: nothing reaches the sample and the process returns a growth
+    per cycle of 0. With the default ``toff1 = toff2 = 0`` no upstream
+    consumption takes place and the dose times are passed through
+    unchanged.
 
     Parameters
     ----------
@@ -17,6 +30,14 @@ class ALDProcess:
         Number of decimal places to round the output to.
     scale : float
         Multiplicative scale factor applied to the model output.
+    toff1 : float
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
+    toff2 : float
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added. Negative results after noise are
@@ -66,9 +87,13 @@ class FastFast(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -92,9 +117,13 @@ class SlowFast(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -118,9 +147,13 @@ class SlowSlow(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -144,9 +177,13 @@ class FastFast3(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -171,9 +208,13 @@ class SoftFast(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -199,9 +240,13 @@ class FastFastCVD01(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
@@ -226,9 +271,13 @@ class VerySlowSlow(ALDProcess):
     scale : float
         Multiplicative scale factor applied to the model output.
     toff1 : float
-        Dead time offset subtracted from t1 before evaluating the model.
+        Precursor dose time consumed upstream of the sample. Doses with
+        t1 < toff1 give no growth; otherwise the model is evaluated at
+        t1 - toff1.
     toff2 : float
-        Dead time offset subtracted from t2 before evaluating the model.
+        Coreactant dose time consumed upstream of the sample. Doses with
+        t2 < toff2 give no growth; otherwise the model is evaluated at
+        t2 - toff2.
     noise : float, optional
         Standard deviation of Gaussian noise added to the raw model output.
         If None, no noise is added.
