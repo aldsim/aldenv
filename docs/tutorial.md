@@ -11,8 +11,41 @@ pip install aldenv
 
 ## ToDo
 
-- [ ] Add example of core ALD models
+- [X] Add example of core ALD models
 - [ ] Add examples of general environments
+
+## ALD models
+
+`aldenv` implements a series of surface kinetic models based on irreversible first order Langmuir kinetics. The four models currently implemented are:
+
+- `SingleALD`: ALD model with a single reaction pathway
+- `MultiALD`: ALD model with multiple reaction pathways
+- `SoftSatALD`: a specific case of `MultiALD` where the precursor has a second reaction pathway, so that it is soft-saturating.
+- `SingleALDCVD`: ALD model with an additional CVD component characterized by the presence of a non-zero co-reactant partial pressure during the precursor dose.
+
+All these models compute the steady state growth per cycle for a pair of dose and a precursor dose times, assuming that these are ideally separated by purge times.
+
+For instance, we can import and define a `SoftSatALD` process as follows:
+
+```python
+from aldenv.models import SoftSatALD
+ald = SoftSatALD(k1=5, k1b=1, fb=0.2, k2=4, gpc=1)
+```
+
+Here, the `k` inputs represent the rate constants (in s<sup>-1</sup>) and `fb` is the fraction of the surface sites with the rate constant `k1b`. The indices `1` and `2` represent the precursor and a coreactant.
+
+The expression:
+```python
+g = ald(1.0,1.0)
+```
+computes the steady state growth per cycle for an ALD process with a dose and precursor dose times of 1 second.
+
+Here is a plot generated using `SoftSatALD` showing saturation curves for different parameter values:
+
+<figure markdown="span">
+![SoftSatALD saturation curve](./images/softsat.png){ width="60%" }
+</figure>
+
 
 ## Environments
 
