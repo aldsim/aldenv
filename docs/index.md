@@ -1,27 +1,30 @@
 # aldenv
 
-A collection of environments for autonomous materials synthesis and
-process optimization using atomic layer deposition and area selective deposition.
+A collection of simple models and environments of atomic layer deposition designed to test the ability of machine learning and AI algorithms to autonomously optimize ALD processes.
+
+## aldenv in a nutshell
+
+`aldenv` considers two different types of objects:
+
+- Models are physics-based simulations of self-limited processes
+
+- Environments incorporate some non-idealities found in real systems, such as noise or delays.
+
 
 ## Motivation
 
-Integrating ML algorithms and AI agents based on LLMs with experimental tools requires
-extensive testing to ensure that the models can perform when deployed for research
-tasks.
+`aldenv` was created to develop and benchmark machine learning algorithms and AI agents based on LLMs meant to be integrated with experimental tools.
 
-One approach to derisk this development is to use virtual tools that provide realistic simulations of both the processes and tool interfaces. These virtual tools can also be used
+The environments in `aldenv` can be viewed as virtual tools that provide realistic simulations of both the processes and tool interfaces.
+These virtual tools can also be used
 to generate benchmarks that can be used to evaluate models and agents and
 identify shortcomings of existing models.
 
-This is the approach that we have followed in two recent works, one that demonstrates
-the integration of LLM-based agents with an experimental atomic layer deposition (ALD) tool,
-and another that explores the performance of reasoning large language models in ALD
-process optimization:
+For more information on how we use simulations in the context of autonomous materials synthesis you can check our works:
 
 - [Design and performance of AI agents interfacing with an atomic layer deposition tool](https://doi.org/10.1063/5.0318770)
 - [Performance of AI agents based on reasoning language models on ALD process optimization tasks](https://doi.org/10.1116/6.0005313)
 
-It also incorporates the code used in prior works focused more on conventional ML algorithms.
 
 ## Install
 
