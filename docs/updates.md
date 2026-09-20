@@ -47,6 +47,10 @@ A rename of the growth models.
   `aldenv.models.ideal`. Importing the models from `aldenv.models`
   continues to work unchanged; only code that imported from the module
   directly has to be updated.
+- `ALDProcess`, the base class the environments derive from, now lives in
+  its own `aldenv.envs.aldprocess` module and can be imported from
+  `aldenv.envs`. It is still reachable from `aldenv.envs.steadystate`, so
+  no existing import has to change.
 
 ## 0.3.0 — 2026-08-22
 
