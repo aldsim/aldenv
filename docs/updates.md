@@ -32,6 +32,22 @@ Optional one- or two-sentence summary of the theme of the release.
 - Anything withdrawn. Note the release in which it was deprecated.
 -->
 
+## 0.4.0 — unreleased
+
+A rename of the growth models.
+
+### Changed
+
+- **Breaking:** the growth models have been renamed. `SimpleALD` is now
+  `SingleALD`, `SimpleALDSoft` is now `SoftSatALD`, and `SimpleALDCVD` is
+  now `SingleALDCVD`. Their arguments and behaviour are unchanged, so
+  updating a script is a matter of renaming the classes. The environments
+  in `aldenv.envs.steadystate` are unaffected.
+- **Breaking:** the `aldenv.models.simple` module is now called
+  `aldenv.models.ideal`. Importing the models from `aldenv.models`
+  continues to work unchanged; only code that imported from the module
+  directly has to be updated.
+
 ## 0.3.0 — 2026-08-22
 
 A rename of the steady-state environments, and a documentation site that

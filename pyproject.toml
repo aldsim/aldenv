@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aldenv"
-version = "0.3.0"
+dynamic = ["version"]
 description = "Environments to explore the integration of AI agents and ML algorithms with ALD tools"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -26,6 +26,11 @@ examples = ["matplotlib"]
 # config stays MkDocs-compatible, so `pip install mkdocs mkdocs-material`
 # also still builds it.
 docs = ["zensical", "pymdown-extensions"]
+
+# The version lives in src/aldenv/__init__.py, so `aldenv.__version__` and the
+# package metadata can never disagree. Bump it there when cutting a release.
+[tool.hatch.version]
+path = "src/aldenv/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aldenv"]

@@ -1,8 +1,8 @@
 import numpy as np
 
-class SimpleALD:
+class SingleALD:
     """
-    Simple model of an ALD process.
+    Ideal model of an ALD process with a single reaction pathway.
 
     Parameters
     ----------
@@ -57,9 +57,10 @@ class SimpleALD:
     def tojson(self):
         return {"k1": self.k1, "k2": self.k2, "gpc": self.gpc}
 
-class SimpleALDSoft:
+class SoftSatALD:
     """
-    Simple model of an ALD process with two parallel reaction pathways.
+    Model of an ALD process that saturates softly, as a result of two
+    parallel reaction pathways.
 
     Parameters
     ----------
@@ -77,8 +78,8 @@ class SimpleALDSoft:
         self.k1 = k1
         self.k1b = k1b
         self.k2 = k2
-        self.ald1 = SimpleALD(k1, k2)
-        self.ald2 = SimpleALD(k1b, k2)
+        self.ald1 = SingleALD(k1, k2)
+        self.ald2 = SingleALD(k1b, k2)
         self.fb = fb
         self.gpc = gpc
 
@@ -99,10 +100,69 @@ class SimpleALDSoft:
     def tojson(self):
         return {"k1": self.k1, "k1b": self.k1b, "fb": self.fb, "k2": self.k2, "gpc": self.gpc}
 
-
-class SimpleALDCVD:
+class MultiALD:
     """
-    Simple model of an ALD process with a CVD component.
+    Kinetic model of a self-limited process with multiple independent reaction pathways
+
+    Each pathway is a SingleALD process with its own kinetic
+    coefficients, and the total growth per cycle is the coverage-weighted
+    sum of the individual contributions.
+
+    Parameters
+    ----------
+    ks : sequence of (k1, k2) pairs
+        Kinetic coefficients for the precursor and coreactant doses of
+        each surface pathway.
+    fractions : sequence of float
+        Coverage fraction of each pathway. Must be non-negative and have
+        the same length as ``ks``. They are normalized to add up to one,
+        so relative weights can be given instead of true fractions.
+    gpc : float
+        Maximum growth per cycle scaling factor.
+    eps : float
+        Threshold for switching to the series expansion when
+        denominator ≈ 0.
+    """
+
+    def __init__(self, ks, fractions, gpc=1, eps=1e-12):
+        self.ks = [(float(k1), float(k2)) for k1, k2 in ks]
+        fractions = [float(f) for f in fractions]
+        if len(self.ks) != len(fractions):
+            raise ValueError("ks and fractions must have the same length")
+        if len(self.ks) == 0:
+            raise ValueError("at least one surface pathway is required")
+        if any(f < 0 for f in fractions):
+            raise ValueError("coverage fractions must be non-negative")
+        ftot = sum(fractions)
+        if ftot <= 0:
+            raise ValueError("coverage fractions must add up to a positive value")
+        self.fractions = [f/ftot for f in fractions]
+        self.gpc = gpc
+        self.eps = eps
+        self.alds = [SingleALD(k1, k2, eps=eps) for k1, k2 in self.ks]
+
+    def __call__(self, t1, t2):
+        """
+        Parameters
+        ----------
+        t1, t2 : float or array
+            Precursor and coreactant dose times (same shape or broadcastable).
+
+        Returns
+        -------
+        gpc : ndarray
+            Growth per cycle values, broadcast to t1/t2 shape.
+        """
+        total = sum(f*ald(t1, t2) for f, ald in zip(self.fractions, self.alds))
+        return self.gpc*total
+
+    def tojson(self):
+        return {"ks": [list(k) for k in self.ks],
+                "fractions": list(self.fractions), "gpc": self.gpc}
+
+class SingleALDCVD:
+    """
+    Ideal model of an ALD process with a CVD component.
 
     Parameters
     ----------

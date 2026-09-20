@@ -1,13 +1,13 @@
-from aldenv.models import SimpleALDCVD
+from aldenv.models import SingleALDCVD
 import matplotlib.pyplot as pt
 import numpy as np
 
-ald1 = SimpleALDCVD(5, 4, 1, gr0=0.02)
-ald2 = SimpleALDCVD(5, 4, 1, gr0=0.05)
-ald3 = SimpleALDCVD(5, 4, 1, gr0=0.08)
+ald1 = SingleALDCVD(5, 4, 1, gr0=0.02)
+ald2 = SingleALDCVD(5, 4, 1, gr0=0.05)
+ald3 = SingleALDCVD(5, 4, 1, gr0=0.08)
 
 
-ald_slow = SimpleALDCVD(1, 4, 1)
+ald_slow = SingleALDCVD(1, 4, 1)
 
 
 
