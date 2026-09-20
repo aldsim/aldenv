@@ -32,9 +32,13 @@ Optional one- or two-sentence summary of the theme of the release.
 - Anything withdrawn. Note the release in which it was deprecated.
 -->
 
-## 0.4.0 — unreleased
+## 0.4.0 — 2026-09-19
 
-A rename of the growth models.
+A rename of the growth models and addition of `MultiALD` model.
+
+### Added
+
+- Added `MultiALD` model comprising multiple independent reaction pathways
 
 ### Changed
 
