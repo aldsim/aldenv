@@ -1,8 +1,7 @@
 # Models and environments
 
-TODO
+## TODO
 
-[ ] Add a description of `aldenv`'s models
-
-[ ] Describe how environments extends models
+- [ ] Add a description of `aldenv`'s models
+- [ ] Describe how environments extend models
 
