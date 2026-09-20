@@ -8,12 +8,6 @@ To install `aldenv` use:
 pip install aldenv
 ```
 
-
-## ToDo
-
-- [X] Add example of core ALD models
-- [ ] Add examples of general environments
-
 ## ALD models
 
 `aldenv` implements a series of surface kinetic models based on irreversible first order Langmuir kinetics. The four models currently implemented are:
@@ -46,10 +40,33 @@ Here is a plot generated using `SoftSatALD` showing saturation curves for differ
 ![SoftSatALD saturation curve](./images/softsat.png){ width="60%" }
 </figure>
 
+## ALD process
+
+The difference between an ALD model and an ALD process, is that an ALD process incorporates some of the non-idealities that you would expect in an experimental system. These are mainly three:
+
+- Measurement noise, added to a model's output
+- Dose offsets due to upstream consumption
+- Scaling factors coming from the nature of the measurement carried out to determine the growth per cycle.
+
+The way `aldenv` implements this is through the use of the `ALDProcess` class. For instance,
+taking the `SoftSatALD` model considered above, we can implement a process as follows:
+
+```Python
+from aldenv.models import SoftSatALD
+ald = SoftSatALD(5, 0.5, 0.3, 4, gpc=1)
+
+process = ALDProcess(ald, round_to=3, toff1=0.8, noise=0.02, scale=0.85)
+```
+
+This implement an ALD process where the output is rounded to three significant digits, has an upstream consumption for the precursor equal to 0.8 seconds, adds a noise of 0.02, and introduces a scaling factor for the growth per cycle of 0.85.
+
+<figure markdown="span">
+![Saturation curve of various ALD processes based on the same ALD model](./images/softsat_process.png){ width="60%" }
+</figure>
 
 ## Environments
 
-`aldenv` implements a number of environments that can be used to benchmark optimization algorithms.
+Finally, `aldenv` implements a number of environments that can be used to benchmark optimization algorithms. These are meant to represent a set of generic ALD processes.
 
 For instance:
 
