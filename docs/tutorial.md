@@ -8,7 +8,13 @@ To install `aldenv` use:
 pip install aldenv
 ```
 
-## Use
+
+## ToDo
+
+- [ ] Add example of core ALD models
+- [ ] Add examples of general environments
+
+## Environments
 
 `aldenv` implements a number of environments that can be used to benchmark optimization algorithms.
 
