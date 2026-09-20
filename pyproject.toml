@@ -28,7 +28,7 @@ examples = ["matplotlib"]
 docs = ["zensical", "pymdown-extensions"]
 
 # The version lives in src/aldenv/__init__.py, so `aldenv.__version__` and the
-# package metadata can never disagree. Bump it there when cutting a release.
+# package metadata can never disagree.
 [tool.hatch.version]
 path = "src/aldenv/__init__.py"
 
